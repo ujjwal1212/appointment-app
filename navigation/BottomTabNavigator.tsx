@@ -1,73 +1,109 @@
 import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import { BottomTabParamList, HomeParamList, AppointmentsParamList, FavouritesParamList, RegistrationParamList } from '../types';
+import AppointmentsScreen from '../screens/AppointmentsScreen';
+import HomeScreen from '../screens/HomeScreen';
+import FavouritesScreen from '../screens/FavouritesScreen';
+import RegistrationContainer from '../src/containers/Auth/RegistrationContainer';
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+const BottomTab = createMaterialBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      initialRouteName="Home">
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Home"
+        component={HomeNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-home" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Appointments"
+        component={AppointmentsNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-calendar" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Favourites"
+        component={FavouritesNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-star-outline" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Registration"
+        component={RegistrationNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-star-outline" color={color} />,
         }}
       />
     </BottomTab.Navigator>
   );
 }
 
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
 function TabBarIcon(props: { name: string; color: string }) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const HomeStack = createStackNavigator<HomeParamList>();
 
-function TabOneNavigator() {
+function HomeNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+    <HomeStack.Navigator>
+      <HomeStack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{ headerTitle: 'Home' }}
       />
-    </TabOneStack.Navigator>
+    </HomeStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const AppointmentsStack = createStackNavigator<AppointmentsParamList>();
 
-function TabTwoNavigator() {
+function AppointmentsNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+    <AppointmentsStack.Navigator>
+      <AppointmentsStack.Screen
+        name="AppointmentsScreen"
+        component={AppointmentsScreen}
+        options={{ headerTitle: 'Appointments' }}
       />
-    </TabTwoStack.Navigator>
+    </AppointmentsStack.Navigator>
+  );
+}
+
+const FavouritesStack = createStackNavigator<FavouritesParamList>();
+
+function FavouritesNavigator() {
+  return (
+    <FavouritesStack.Navigator>
+      <FavouritesStack.Screen
+        name="FavouritesScreen"
+        component={FavouritesScreen}
+        options={{ headerTitle: 'Favorites' }}
+      />
+    </FavouritesStack.Navigator>
+  );
+}
+
+const RegistrationStack = createStackNavigator<RegistrationParamList>();
+
+function RegistrationNavigator() {
+  return (
+    <RegistrationStack.Navigator>
+      <RegistrationStack.Screen
+        name="RegistrationContainer"
+        component={RegistrationContainer}
+        options={{ headerTitle: 'Register' }}
+      />
+    </RegistrationStack.Navigator>
   );
 }
