@@ -2,17 +2,31 @@
 import React, { Component } from 'react';
 import { ScrollView, Image, View,RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchFavorites,favoriteCompany } from '../../actions/favorites';
 import { assets } from '../../utils/assets';
-import CompanyList from './../../components/Company/CompanyList';
-import NoResult from './../../components/NoResult';
 import LoadingIndicator from '../../components/LoadingIndicator';
-import { Actions } from 'react-native-router-flux';
 import isEmpty from 'lodash/isEmpty';
-class Favorites extends Component {
-
-  constructor() {
-    super();
+import { StackNavigationProp } from '@react-navigation/stack';
+import { BottomTabParamList } from '../../../types';
+import NoResult from '../../components/NoResult';
+import CompanyList from '../../screens/Company/CompanyList';
+import { AppState } from '../../store/configure-store';
+interface IProps {
+  navigation: StackNavigationProp<BottomTabParamList>;
+  userReducer: any;
+  favorites: Array<any>
+}
+interface IState {
+  isRefreshing: boolean
+}
+interface LinkStateProps {}
+interface LinkDispatchProps {
+  fetchFavorites: () => Promise<any>;
+  favoriteCompany: (company: any) => void;
+}
+type Props = IProps & LinkStateProps & LinkDispatchProps;
+class Favorites extends Component<Props, IState> {
+  constructor(props: Props) {
+    super(props);
     this.state={
       isRefreshing:false
     };
@@ -25,28 +39,28 @@ class Favorites extends Component {
     if(this.props.userReducer.isAuthenticated) {
       //  Actions.loginDialog({dialogText:'Please Login to view and manage your Favorites'})
       //} else {
-      this.props.dispatch(fetchFavorites());
+      this.props.fetchFavorites();
     }
   }
 
-  loadCompany(company) {
-    return Actions.companyEntity({
+  loadCompany(company: any) {
+    return this.props.navigation.navigate('Company', {
       title:company.name_en,
       itemID: company.id
     });
   }
 
-  favoriteCompany(company) {
-    this.props.dispatch(favoriteCompany(company));
+  favoriteCompany(company: any) {
+    this.props.favoriteCompany(company);
   }
 
   onRefresh() {
     this.setState({isRefreshing: true});
-    this.props.dispatch(fetchFavorites()).then((val)=>this.setState({isRefreshing: false}));
+    this.props.fetchFavorites().then((val)=>this.setState({isRefreshing: false}));
   }
 
   callback() {
-    return Actions.main();
+    return this.props.navigation.navigate("Home");
   }
   
   render() {
@@ -54,7 +68,7 @@ class Favorites extends Component {
     const { userReducer,favorites } = this.props;
 
     return (
-      <Image source={assets.nail} style={{flex:1,width: null,height: null,paddingTop:64,backgroundColor:'white'}}>
+      <Image source={assets.nail} style={{flex:1,paddingTop:64,backgroundColor:'white'}}>
         <ScrollView
           automaticallyAdjustContentInsets={false}
           contentInset={{bottom:40}}
@@ -94,12 +108,12 @@ class Favorites extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: AppState) {
   const { entities } = state;
-  const user = entities.users[state.userReducer.authUserID];
+  const user: any = state.userReducer.authUserID && entities.users[state.userReducer.authUserID || "null"];
   return {
     userReducer:state.userReducer,
-    favorites: user && user.favorites ? user.favorites.map((companyID) => entities.companies[companyID] ) : []
+    favorites: user && user.favorites ? user.favorites.map((companyID: any) => entities.companies[companyID] ) : []
   }
 }
 

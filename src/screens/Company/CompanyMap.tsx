@@ -1,11 +1,19 @@
 'use strict';
 import React, { Component } from 'react';
 import { StyleSheet,View,TouchableOpacity,Text } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
+interface IProps {
+  pin: string;
+  company: any;
+  followLocation: any;
+}
+interface IState {
+  pin: any;
+  region: any;
+}
+export default class CompanyMap extends Component<IProps, IState> {
 
-export default class CompanyMap extends Component {
-
-  constructor(props) {
+  constructor(props: IProps) {
     super(props);
     this.state = {
       pin: this.props.pin,
@@ -13,8 +21,7 @@ export default class CompanyMap extends Component {
     }
   }
 
-  getFitZoomMapRegionWithCoords(region) {
-
+  getFitZoomMapRegionWithCoords(region: any) {
     var topLeftLatitude = -90;
     var topLeftLongitude = 180;
     var bottomRightLatitude = 90;
@@ -50,13 +57,13 @@ export default class CompanyMap extends Component {
         style={styles.map}
         region={this.state.region}
       >
-        <MapView.Marker
+        <Marker
           ref={"ref"+company.id}
           key={"key"+company.id}
           coordinate={{latitude:parseFloat(company.latitude),longitude:parseFloat(company.longitude)}}
           title={company.name_en}
           description={`${company.address_en},${company.city_en}`}
-          onSelect={()=>followLocation(company)}
+          onSelect={() => followLocation(company)}
           pinColor="blue"
         />
         <View/>

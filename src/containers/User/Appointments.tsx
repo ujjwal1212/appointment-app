@@ -2,19 +2,43 @@
 import React, { Component } from 'react';
 import { ScrollView, Image, View, RefreshControl,Linking,ActionSheetIOS } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 import { fetchAppointments,cancelAppointment } from '../../actions/appointments';
 import { fetchTimings } from '../../actions/timings';
 import { assets } from '../../utils/assets';
-import ConfirmedAppointmentList from './../../components/Appointment/ConfirmedAppointmentList';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import mapValues from 'lodash/mapValues';
 import isEmpty from 'lodash/isEmpty';
 import NoResult from './../../components/NoResult';
-class Appointments extends Component {
+import { ThunkDispatch } from 'redux-thunk';
+import { AppActions } from '../../constants/ActionTypes';
+import { AppState } from '../../store/configure-store';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { BottomTabParamList } from '../../../types';
+import ConfirmedAppointmentList from '../../screens/Appointment/ConfirmedAppointmentList';
+interface IProps {
+  userReducer: any;
+  navigation: StackNavigationProp<BottomTabParamList>;
+  appointments: Array<any>;
+  companies: Array<any>;
+  services: Array<any>;
+  timings: Array<any>;
+  users: Array<any>;
+  employees: Array<any>; 
+}
+interface IState {
+  isRefreshing: boolean;
+}
+interface LinkStateProps {}
+interface LinkDispatchProps {
+  fetchTimings: () => void;
+  fetchAppointments: () => Promise<any>;
+  cancelAppointment: (id :any) => void;
+}
+type Props = IProps & LinkStateProps & LinkDispatchProps;
+class Appointments extends Component<Props, IState> {
 
-  constructor() {
-    super();
+  constructor(props: Props) {
+    super(props);
     this.state={
       isRefreshing:false
     };
@@ -25,20 +49,20 @@ class Appointments extends Component {
 
   componentDidMount() {
     if(this.props.userReducer.isAuthenticated) {
-      this.props.dispatch(fetchTimings());
-      this.props.dispatch(fetchAppointments());
+      this.props.fetchTimings();
+      this.props.fetchAppointments();
     }
   }
 
-  cancelAppointment(appointment) {
-    this.props.dispatch(cancelAppointment(appointment.id));
+  cancelAppointment(appointment: any) {
+    this.props.cancelAppointment(appointment.id);
   }
 
   callback() {
-    return Actions.main();
+    return this.props.navigation.navigate("Home");
   }
 
-  followLocation(company) {
+  followLocation(company: any) {
     ActionSheetIOS.showActionSheetWithOptions(
       {
         title: `${company.name_en}, ${company.address_en} - ${company.city_en}`,
@@ -52,7 +76,7 @@ class Appointments extends Component {
     );
   }
   
-  openMaps(company,buttonIndex) {
+  openMaps(company: any,buttonIndex: any) {
     var address = encodeURIComponent(company.address_en);
     switch (buttonIndex) {
       case 0:
@@ -73,7 +97,7 @@ class Appointments extends Component {
 
   onRefresh() {
     this.setState({isRefreshing: true});
-    this.props.dispatch(fetchAppointments()).then((val)=>this.setState({isRefreshing: false}));
+    this.props.fetchAppointments().then((val)=> this.setState({isRefreshing: false}));
   }
 
   render() {
@@ -91,7 +115,7 @@ class Appointments extends Component {
     });
 
     return (
-      <Image source={assets.bg} style={{flex:1,width: null,height: null,paddingTop:64,backgroundColor:'white'}}>
+      <Image source={assets.bg} style={{flex:1,paddingTop:64,backgroundColor:'white'}}>
         <ScrollView
           automaticallyAdjustContentInsets={false}
           contentInset={{bottom:40}}
@@ -131,7 +155,24 @@ class Appointments extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapDispatchToProps(
+  dispatch: ThunkDispatch<any, any, AppActions>,
+  ownProps: IProps
+): LinkDispatchProps {
+  return {
+    fetchTimings: () => {
+      dispatch(fetchTimings())
+    },
+    fetchAppointments: () => {
+      return dispatch(fetchAppointments());
+    }, 
+    cancelAppointment: (id: any) =>{
+
+    }
+   };
+};
+
+function mapStateToProps(state: AppState) {
   const { entities } = state;
   return {
     userReducer:state.userReducer,

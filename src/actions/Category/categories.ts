@@ -16,7 +16,7 @@ function categoriesRequest() {
 }
 
 function categoriesSuccess(payload: any) {
-  const normalized = normalize(payload.data,Schemas.CATEGORY_ARRAY);
+  const normalized = normalize(payload,Schemas.CATEGORY_ARRAY);
   return {
     type: CATEGORIES_SUCCESS,
     entities:normalized.entities
@@ -32,19 +32,16 @@ function categoriesFailure(error: any) {
 
 export function fetchCategories() {
 
-  const url = API_ROOT + '/categories';
+  const url = '/categories';
   return function (dispatch: any,getState: any) {
-
+    console.log(getState().entities);
     if(!isEmpty(getState().entities.categories)) {
-      return;
+      console.log("emptyState");
     }
-
     dispatch(categoriesRequest());
     return fetch(url)
       .then(response => response.json())
-      .then(json => {
-        dispatch(categoriesSuccess(json));
-      })
-      .catch(error => dispatch(categoriesFailure(error)))
+      .then(json => dispatch(categoriesSuccess(json)))
+      .catch(error => dispatch(categoriesFailure(error)));
   };
 }

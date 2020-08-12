@@ -1,12 +1,15 @@
 'use strict';
 import React, {  Component } from 'react';
 import { ScrollView, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import { ListView } from "deprecated-react-native-listview";
+import { FlatList } from 'react-native-gesture-handler';
+interface IProps {
+  loadService: (service: any) => void;
+  services: Array<any>
+}
+interface IState {}
 
-export default class ServiceSidebarList extends Component {
-
-
-  renderRow(service) {
+export default class ServiceSidebarList extends Component<IProps, IState> {
+  renderRow(service: any) {
     return (
       <View style={styles.cellContainer}>
         <TouchableHighlight onPress={() => this.props.loadService(service)} underlayColor='transparent'>
@@ -25,17 +28,14 @@ export default class ServiceSidebarList extends Component {
 
   render() {
     const {services} = this.props;
-    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2})
-    let dataSource = services ? ds.cloneWithRows(services) : ds.cloneWithRows([]);
 
     return (
       <ScrollView style={styles.container} >
         <Text style={styles.sectionHeader}>Select Service</Text>
-        <ListView
-          dataSource={dataSource}
-          renderRow={this.renderRow.bind(this)}
+        <FlatList
+          data={services}
+          renderItem={this.renderRow.bind(this)}
           automaticallyAdjustContentInsets={false}
-          enableEmptySections={true} //@todo remove this in future version
         />
       </ScrollView>
 

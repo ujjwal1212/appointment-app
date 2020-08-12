@@ -1,14 +1,12 @@
-'use strict';
 import React, {Component} from 'react';
-import {Actions } from 'react-native-router-flux';
-import { ScrollView, StyleSheet, Text, View} from 'react-native';
-import F8ListContainer from '../F8/F8ListContainer';
-import F8PureListView from '../F8/F8PureListView';
+import { StyleSheet, Text, View} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { FlatList } from 'react-native-gesture-handler';
 
 export default class ProfileScene extends Component {
-
+  private navigation = useNavigation();
   openFilterScreen() {
-    return Actions.pop();
+    return this.navigation.goBack();
   }
 
   filterItem() {
@@ -20,11 +18,7 @@ export default class ProfileScene extends Component {
 
   render() {
     return (
-      <F8ListContainer
-        title="Profile"
-        backgroundImage={require('./../../assets/img/maps-background.png')}
-        backgroundColor={'#9176D2'}
-        leftItem={this.filterItem()}
+      <FlatList
       >
         <F8PureListView
           enableEmptySections={true}

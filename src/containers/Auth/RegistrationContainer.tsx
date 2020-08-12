@@ -36,6 +36,8 @@ export class RegistrationContainer extends React.Component<Props, IState> {
   constructor(props: Props) {
     super(props);
     this.initState();
+    console.log("here");
+    console.log("Categories Mounted");
   }
 
   private initState() {
@@ -48,7 +50,7 @@ export class RegistrationContainer extends React.Component<Props, IState> {
     };
   }
 
-  onFieldChange(field: keyof IState, value: any) {
+  onFieldChange = (field: keyof IState, value: any) => {
     this.setState({ ...this.state, [field]: value });
   }
 

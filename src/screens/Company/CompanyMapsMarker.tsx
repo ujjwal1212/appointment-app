@@ -1,10 +1,14 @@
 'use strict';
 import React, { Component } from 'react';
-import { StyleSheet,View,Text,Dimensions,TouchableOpacity,TouchableHighlight } from 'react-native';
-import MapView from 'react-native-maps';
-import { assets } from '../../utils/assets';
-
-export default class CompanyMapsMarker extends Component {
+import { StyleSheet,View } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+interface IProps {
+  companies: any;
+  followLocation: any;
+  region: any;
+}
+interface IState {}
+export default class CompanyMapsMarker extends Component<IProps, IState> {
 
   render() {
     const {companies,followLocation,region} = this.props;
@@ -19,7 +23,7 @@ export default class CompanyMapsMarker extends Component {
         { Object.keys(companies).map(function (key) {
           var company = Object.assign({},companies[key]);
           return (
-            <MapView.Marker
+            <Marker
               ref={"ref"+company.id}
               key={"key"+company.id}
               coordinate={{latitude:parseFloat(company.latitude),longitude:parseFloat(company.longitude)}}

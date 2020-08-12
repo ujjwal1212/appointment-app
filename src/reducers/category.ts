@@ -13,7 +13,7 @@ const InitialState = Record({
 
 const initialState = new InitialState;
 
-export default function categoryReducer(state = initialState, action = {}) {
+export default function categoryReducer(state = initialState, action : any) {
   switch (action.type) {
     case CATEGORY_REQUEST:
       return state

@@ -1,11 +1,18 @@
 'use strict';
 import React, {Component } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View, ListView, Linking} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ListView, Linking} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+interface IProps {
+  company: any;
+}
+interface IState {}
+export default class CompanyContact extends Component<IProps, IState> {
 
-export default class CompanyContact extends Component {
+  constructor(props: IProps){
+    super(props);
+  }
 
-  loadLink(company,url) {
+  loadLink(company: any,url: any) {
     switch(company) {
       case 'instagram' :
         return this.openLink(`instagram://user?username=${url}`);
@@ -20,7 +27,7 @@ export default class CompanyContact extends Component {
     }
   }
 
-  openLink(url) {
+  openLink(url: any) {
     Linking.openURL(url);
   }
 
@@ -130,7 +137,6 @@ var styles = StyleSheet.create({
     fontWeight:'600',
     alignSelf:'center',
     paddingTop:10,
-    fontFamily:'SnellRoundhand'
   },
   icon:{
     width:20,

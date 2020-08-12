@@ -1,8 +1,14 @@
 import React, {  Component } from 'react';
-import { ScrollView, TouchableHighlight, StyleSheet, Text, View, AlertIOS } from 'react-native';
+import { ScrollView, TouchableHighlight, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-export default class SettingsCell extends Component {
+interface IProps {
+  callback: (name: any) => void;
+  icon: any;
+  title: any;
+  name: any;
+}
+interface IState {}
+export default class SettingsCell extends Component<IProps, IState> {
 
   render() {
     const {callback,icon,title,name} = this.props;

@@ -70,7 +70,6 @@ const getEntities = (state: AppState,props: IProps) => state.entities;
 const getCompanies = createSelector(
   [ getCategory,getEntities ],
   ( category,entities ) => {
-    // return category.companies ? alphabetize(category.companies.map((company) => entities.companies[company])) : []
     return category.companies ? category.companies.map((company: any) => entities.companies[company]) : []
   }
 );

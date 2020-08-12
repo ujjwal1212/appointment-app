@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { Image } from 'react-native';
+import React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../store/configure-store';
 import CategoryList from '../../screens/Category/CategoryList';
@@ -8,10 +7,12 @@ import { BottomTabParamList } from '../../../types';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppActions } from '../../constants/ActionTypes';
 import { fetchCategories } from '../../actions/Category/categories';
+import { View } from '../../../components/Themed';
+import { ICategory } from '../../constants/Category';
 
 interface IProps {
   navigation: StackNavigationProp<BottomTabParamList>;
-  categories: Array<any>;
+  categories: Array<ICategory>;
   categoriesReducer: any;
 }
 interface IState {}
@@ -21,13 +22,10 @@ interface LinkDispatchProps {
 }
 type Props = IProps & LinkStateProps & LinkDispatchProps;
 
-class Categories extends Component<Props, IState> {
+class Categories extends React.Component<Props, IState> {
 
   constructor(props: Props) {
     super(props);
-  }
-
-  componentDidMount() {
     this.props.fetchCategories();
   }
 
@@ -41,15 +39,11 @@ class Categories extends Component<Props, IState> {
   render() {
     const { categories,categoriesReducer } = this.props;
     return (
-      <Image style={{flex: 1, paddingTop: 64,backgroundColor:'white'}}
-             source={require('./../../assets/img/bghome.png')}
-      >
-        <CategoryList
-          categories={categories}
-          loadCategory={this.loadCategory}
-          categoriesReducer={categoriesReducer}
-        />
-      </Image>
+      <CategoryList
+        categories={categories}
+        loadCategory={this.loadCategory}
+        categoriesReducer={categoriesReducer}
+      />
     );
   }
 }
@@ -59,9 +53,7 @@ function mapDispatchToProps(
   ownProps: IProps
 ): LinkDispatchProps {
   return {
-    fetchCategories: () => {
-      dispatch(fetchCategories())
-    }
+    fetchCategories: () => dispatch(fetchCategories())
    };
 };
 

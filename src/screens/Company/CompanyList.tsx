@@ -2,10 +2,16 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, View, ListView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+interface IProps {
+  loadCompany: any;
+  favoriteCompany: any;
+  companies: Array<any>
+}
+interface IState {}
 
-export default class CompanyList extends Component {
+export default class CompanyList extends Component<IProps, IState> {
 
-  renderRow(company) {
+  renderRow(company: any) {
     const {loadCompany,favoriteCompany} = this.props;
     return (
       <View style={styles.cellWrapper}>

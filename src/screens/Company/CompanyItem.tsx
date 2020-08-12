@@ -1,11 +1,13 @@
 'use strict';
 import React, { Component } from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, View, ListView} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+interface IProps {
+  company: any;
+}
+interface IState {}
+export default class CompanyItem extends Component<IProps, IState> {
 
-export default class CompanyItem extends Component {
-
-  renderContent(company) {
+  renderContent(company: any) {
     return (
       <Image source={{uri:company.image}} style={styles.container}>
         <View style={styles.textView}>
@@ -28,7 +30,6 @@ export default class CompanyItem extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: null,
     height: 300,
     opacity:.8,
     justifyContent:'flex-end'
@@ -46,7 +47,6 @@ var styles = StyleSheet.create({
     alignSelf:'center',
     paddingTop:10,
     paddingBottom:10,
-    fontFamily:'SnellRoundhand'
   }
 
 });

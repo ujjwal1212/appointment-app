@@ -1,6 +1,6 @@
 import { normalize, schema } from 'normalizr';
 
-const categorySchema = new schema.Array('categories');
+const categorySchema = new schema.Entity('categories');
 const companySchema = new schema.Entity('companies');
 const userSchema = new schema.Entity('users');
 const serviceSchema = new schema.Entity('services');
