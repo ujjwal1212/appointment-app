@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TouchableHighlight, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LoadingIndicator from '../../components/LoadingIndicator';
-const Modal = require('react-native-modalbox');
+import Modal from 'react-native-modalbox';
 
 interface IProps {
   onAppointmentConfirm: () => void;

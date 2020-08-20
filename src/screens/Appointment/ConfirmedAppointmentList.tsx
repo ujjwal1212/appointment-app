@@ -4,6 +4,7 @@ import { TouchableHighlight, ListView, StyleSheet, Text, View } from 'react-nati
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {APP_STYLES} from '../../utils/AppStyles';
+import { FlatList } from 'react-native-gesture-handler';
 interface IProps {
   appointments: Array<any>;
   followLocation: (company: any) => void;
@@ -90,20 +91,16 @@ export default class ConfirmedAppointmentList extends Component<IProps> {
   }
 
   render() {
-    console.log('reached confirmed appointment list');
     const {appointments} = this.props;
-    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2});
-    let dataSource = appointments ? ds.cloneWithRows(appointments) : ds.cloneWithRows([]);
 
     return (
-      <ListView
+      <FlatList
         style={styles.container}
-        dataSource={dataSource}
-        renderRow={this.renderRow.bind(this)}
+        data={appointments}
+        renderItem={this.renderRow.bind(this)}
         contentInset={{bottom:49}}
         automaticallyAdjustContentInsets={false}
         ref='listView'
-        enableEmptySections={true} //@todo remove this in future version
       />
     )
   }

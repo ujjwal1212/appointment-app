@@ -1,8 +1,11 @@
 'use strict';
 import React, { Component } from 'react';
 import { StyleSheet,View,Text } from 'react-native';
-
-export default class CompanyDescription extends Component {
+interface IProps {
+  company: any;
+}
+interface IState {}
+export default class CompanyDescription extends Component<IProps, IState> {
   render() {
     return (
       <View style={styles.container}>

@@ -10,8 +10,10 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { APP_STYLES } from "../../utils/AppStyles";
+import { ICompany } from "../../constants/Company";
 interface IProps {
   services: Array<any>;
+  company: ICompany;
 }
 interface IState {}
 interface LinkStateProps {}

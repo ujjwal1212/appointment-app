@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Dimensions} from 'react-native';
-import CalendarPicker, { DateChangedCallback } from 'react-native-calendar-picker';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { BottomTabParamList } from '../../../types';
+import CalendarPicker from 'react-native-calendar-picker';
+;
 
 interface IProps {
   selectedDate: any,

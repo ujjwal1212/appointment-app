@@ -38,18 +38,20 @@ export function fetchCategory(categoryID: any, requiredFields = []) {
     if (category && requiredFields.every(key => category.hasOwnProperty(key))) {
       return null
     }
-
+    
     dispatch(categoryRequest());
     getUserToken().then((token) => {
-        const url = API_ROOT + `/categories/${categoryID}/?api_token=${token}`;
+        const url = `/categories/${categoryID}/?api_token=${token}`;
         return fetch(url)
           .then(response => response.json())
           .then(json => {
-            const normalized = normalize(json.data,Schemas.CATEGORY);
+            const normalized = normalize(json, Schemas.CATEGORY);
+            console.log(normalized);
             dispatch(categorySuccess(normalized))
           })
       })
       .catch((err)=> {
+        console.log(err);
         dispatch(categoryFailure(err))
       });
   }

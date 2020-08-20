@@ -1,6 +1,5 @@
-'use strict';
 import React, { Component } from 'react';
-import { ScrollView, Image, View, RefreshControl,Linking,ActionSheetIOS } from 'react-native';
+import { ScrollView, Image, RefreshControl,Linking,ActionSheetIOS } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchAppointments,cancelAppointment } from '../../actions/appointments';
 import { fetchTimings } from '../../actions/timings';
@@ -8,13 +7,14 @@ import { assets } from '../../utils/assets';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import mapValues from 'lodash/mapValues';
 import isEmpty from 'lodash/isEmpty';
-import NoResult from './../../components/NoResult';
+import NoResult from '../../components/NoResult';
 import { ThunkDispatch } from 'redux-thunk';
 import { AppActions } from '../../constants/ActionTypes';
 import { AppState } from '../../store/configure-store';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { BottomTabParamList } from '../../../types';
 import ConfirmedAppointmentList from '../../screens/Appointment/ConfirmedAppointmentList';
+
 interface IProps {
   userReducer: any;
   navigation: StackNavigationProp<BottomTabParamList>;
@@ -35,34 +35,28 @@ interface LinkDispatchProps {
   cancelAppointment: (id :any) => void;
 }
 type Props = IProps & LinkStateProps & LinkDispatchProps;
-class Appointments extends Component<Props, IState> {
+class AppointmentsContainer extends Component<Props, IState> {
 
   constructor(props: Props) {
     super(props);
     this.state={
       isRefreshing:false
     };
-    this.onRefresh = this.onRefresh.bind(this);
-    this.cancelAppointment = this.cancelAppointment.bind(this);
-    this.followLocation = this.followLocation.bind(this);
-  }
-
-  componentDidMount() {
     if(this.props.userReducer.isAuthenticated) {
       this.props.fetchTimings();
       this.props.fetchAppointments();
     }
   }
 
-  cancelAppointment(appointment: any) {
+  public cancelAppointment = (appointment: any) => {
     this.props.cancelAppointment(appointment.id);
   }
 
-  callback() {
+  public callback = () => {
     return this.props.navigation.navigate("Home");
   }
 
-  followLocation(company: any) {
+  public followLocation = (company: any) => {
     ActionSheetIOS.showActionSheetWithOptions(
       {
         title: `${company.name_en}, ${company.address_en} - ${company.city_en}`,
@@ -83,8 +77,6 @@ class Appointments extends Component<Props, IState> {
         Linking.openURL('http://maps.apple.com/?q=' + address);
         break;
       case 1:
-        // var nativeGoogleUrl = 'comgooglemaps://?q=' +
-        //   address + '&x-success=f8://&x-source=F8';
         var nativeGoogleUrl = `comgooglemaps://?daddr=${parseFloat(company.latitude)},${parseFloat(company.longitude)}&center=${parseFloat(company.latitude)},${parseFloat(company.longitude)}&zoom=14&views=traffic&directionsmode=driving`;
         Linking.canOpenURL(nativeGoogleUrl).then((supported) => {
           var url = supported ? nativeGoogleUrl : 'http://maps.google.com/?q=' + address;
@@ -95,7 +87,7 @@ class Appointments extends Component<Props, IState> {
 
   }
 
-  onRefresh() {
+  onRefresh = () => {
     this.setState({isRefreshing: true});
     this.props.fetchAppointments().then((val)=> this.setState({isRefreshing: false}));
   }
@@ -103,14 +95,13 @@ class Appointments extends Component<Props, IState> {
   render() {
     const { userReducer,appointments,companies,services,timings,users,employees } = this.props;
 
-    //@todo: move to selector
-    const appointmentsArray = mapValues(appointments,(appointment) => {
+    const appointmentsArray = mapValues(appointments, (appointment) => {
       return Object.assign({},appointment,{
-        company:companies[appointment.company],
-        service:services[appointment.service],
-        employee:appointment.employee ? employees[appointment.employee] : null,
-        timing:timings[appointment.timing],
-        user:users[appointment.user]
+        company: companies[appointment.company],
+        service: services[appointment.service],
+        employee: appointment.employee ? employees[appointment.employee] : null,
+        timing: timings[appointment.timing],
+        user: users[appointment.user]
       });
     });
 
@@ -167,7 +158,7 @@ function mapDispatchToProps(
       return dispatch(fetchAppointments());
     }, 
     cancelAppointment: (id: any) =>{
-
+      return dispatch(cancelAppointment(id));
     }
    };
 };
@@ -185,4 +176,4 @@ function mapStateToProps(state: AppState) {
   }
 }
 
-export default connect(mapStateToProps)(Appointments);
+export default connect(mapStateToProps)(AppointmentsContainer);

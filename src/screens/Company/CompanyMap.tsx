@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet,View,TouchableOpacity,Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 interface IProps {
-  pin: string;
+  pin: any;
   company: any;
   followLocation: any;
 }

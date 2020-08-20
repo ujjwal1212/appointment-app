@@ -1,9 +1,10 @@
-'use strict';
 import React, { Component } from 'react';
-import {  StyleSheet, Text, View, Image, TouchableHighlight, TextInput } from 'react-native';
+import {  StyleSheet, Text, View, Image, TouchableHighlight, TextInput, StatusBar } from 'react-native';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import { APP_STYLES } from '../../utils/AppStyles';
 import FormButton from '../../components/FormButton';
+import * as Animatable from "react-native-animatable";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 type IProps = {
   email?: string;
@@ -25,40 +26,50 @@ export default class LoginScreen extends Component<IProps> {
       <View style={styles.container}>
 
         {loginReducer.isFetching && <LoadingIndicator /> }
+        <StatusBar backgroundColor="#FEAD37" barStyle="light-content" />
+        <View style={styles.header}>
+          <Animatable.View
+            animation="bounceIn"
+            duration={1500}
+          >
+            <Text style={{fontSize: 40}}>Login</Text>
+          </Animatable.View>
+        </View>
+        <View style={styles.footer}>
+          <TextInput
+            style={[styles.textInput]}
+            onChangeText={(value) => onFieldChange('email',value)}
+            value={email}
+            maxLength={40}
+            placeholderTextColor="gray"
+          />
 
-        <TextInput
-          style={[styles.textInput]}
-          onChangeText={(value) => onFieldChange('email',value)}
-          value={email}
-          maxLength={40}
-          placeholderTextColor="gray"
-        />
+          <TextInput
+            style={[styles.textInput]}
+            onChangeText={(value) => onFieldChange('password',value)}
+            value={password}
+            maxLength={40}
+            placeholderTextColor="gray"
+          />
 
-        <TextInput
-          style={[styles.textInput]}
-          onChangeText={(value) => onFieldChange('password',value)}
-          value={password}
-          maxLength={40}
-          placeholderTextColor="gray"
-        />
+          <FormButton
+            disabled={loginReducer.isFetching}
+            onPress={()=>loginUser()}
+            buttonText='Login'
+            color={APP_STYLES.buttonTextColor}
+          />
 
-        <FormButton
-          disabled={loginReducer.isFetching}
-          onPress={()=>loginUser()}
-          buttonText='Login'
-        />
+          <TouchableHighlight onPress={()=>handleRegisterRoute()} underlayColor='transparent'
+                              style={[styles.center,styles.mTop20]}
+          >
+            <Text style={[styles.label,styles.textUnderline]}>Dont have an account? Register</Text>
+          </TouchableHighlight>
 
-        <TouchableHighlight onPress={()=>handleRegisterRoute()} underlayColor='transparent'
-                            style={[styles.center,styles.mTop20]}
-        >
-          <Text style={[styles.label,styles.textUnderline]}>Dont have an account? Register</Text>
-        </TouchableHighlight>
-
-        <TouchableHighlight onPress={()=>handleForgotPasswordRoute()} style={[styles.center,styles.mTop20]}
-                            underlayColor='transparent' >
-          <Text style={[styles.label,styles.textUnderline]}>Forgot your password ?</Text>
-        </TouchableHighlight>
-
+          <TouchableHighlight onPress={()=>handleForgotPasswordRoute()} style={[styles.center,styles.mTop20]}
+                              underlayColor='transparent' >
+            <Text style={[styles.label,styles.textUnderline]}>Forgot your password ?</Text>
+          </TouchableHighlight>
+        </View>
       </View>
 
     )
@@ -67,9 +78,22 @@ export default class LoginScreen extends Component<IProps> {
 }
 
 var styles = StyleSheet.create({
-
   container:{
-    padding:10
+    flex: 1,
+    backgroundColor: "#FEAD37",
+  },
+  header: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footer: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+    paddingVertical: 50,
+    paddingHorizontal: 30,
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 30,
   },
   label: {
     fontSize: 14,

@@ -20,7 +20,7 @@ function companyRequest() {
 }
 
 function companySuccess(payload: any) {
-  const normalized = normalize(payload.data,Schemas.COMPANY);
+  const normalized = normalize(payload,Schemas.COMPANY);
   return {
     type: COMPANY_SUCCESS,
     entities: normalized.entities
@@ -34,8 +34,8 @@ function companyFailure(error: any) {
   }
 }
 
-export function fetchCompany(companyID: any,requiredFields=[]) {
-  const url = `${API_ROOT}/companies/${companyID}/show`;
+export function fetchCompany(companyID: any,requiredFields: string[]) {
+  const url = `/companies/${companyID}/show`;
   return (dispatch: any,getState: any) => {
 
     const company = getState().entities.companies[companyID];
@@ -46,9 +46,10 @@ export function fetchCompany(companyID: any,requiredFields=[]) {
     return fetch(url)
       .then(response => response.json())
       .then(json => {
-        dispatch(companySuccess(json))
+        return dispatch(companySuccess(json))
       })
       .catch((err)=> {
+        console.log(err);
         dispatch(companyFailure(err))
       })
   }

@@ -1,4 +1,3 @@
-'use strict';
 import React, { Component } from 'react';
 import { ScrollView,Alert,View,Text } from 'react-native';
 import { connect } from 'react-redux';
@@ -28,7 +27,6 @@ interface IProps {
   service: any;
   timingsReducer: any;
 }
-
 interface IState {
   selectedDate: Date,
   selectedTime: any,
@@ -58,15 +56,6 @@ class AppointmentContainer extends Component<Props, IState> {
       showEmployeeListModal : false,
       showAppointmentConfirmModal : false
     };
-    
-    this.listEmployees = this.listEmployees.bind(this);
-    this.onDateChange = this.onDateChange.bind(this);
-    this.onTimeSelect = this.onTimeSelect.bind(this);
-    this.onEmployeeSelect = this.onEmployeeSelect.bind(this);
-    this.onEmployeeListModalClosed = this.onEmployeeListModalClosed.bind(this);
-    this.onAppointmentConfirmModalListClosed = this.onAppointmentConfirmModalListClosed.bind(this);
-    this.handleNext = this.handleNext.bind(this);
-    this.inValidateAppointment = this.inValidateAppointment.bind(this);
     this.handleConfirm = this.handleConfirm.bind(this);
   }
 
@@ -79,48 +68,47 @@ class AppointmentContainer extends Component<Props, IState> {
     }
   }
 
-  listEmployees() {
+  public listEmployees = () => {
     this.setState({ showEmployeeListModal:true });
   }
 
-  onDateChange(date: Date) {
+  public onDateChange = (date: Date) => {
     this.setState({ selectedDate: date });
   }
 
-  onTimeSelect(time: any) {
+  public onTimeSelect = (time: any) => {
     this.setState({ selectedTime: time });
   };
 
-  onEmployeeSelect(employee: any){
+  public onEmployeeSelect = (employee: any) => {
     this.setState({
       selectedEmployee:employee,
       showEmployeeListModal:false
     });
   }
 
-  onEmployeeListModalClosed() {
+  public onEmployeeListModalClosed = () => {
     this.setState({ showEmployeeListModal:false });
   }
 
-  onAppointmentConfirmModalListClosed() {
+  public onAppointmentConfirmModalListClosed = () => {
     this.setState({ showAppointmentConfirmModal:false });
   }
 
-  handleNext() {
+  public handleNext = () => {
     this.setState({ showAppointmentConfirmModal:true });
   }
 
-  inValidateAppointment() {
+  public inValidateAppointment = () => {
     this.props.invalidateCreatedAppointment();
     return this.props.navigation.goBack();
   }
 
-  handleConfirm() {
+  public handleConfirm = () => {
     const data = { ...this.props, ...this.state};
     const appointmentData = new Appointment(data);
     this.props.createAppointment(appointmentData);
   }
-
 
   render() {
     const {timings,employees,company,userReducer,service,timingsReducer} = this.props;

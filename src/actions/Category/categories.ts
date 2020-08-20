@@ -34,9 +34,9 @@ export function fetchCategories() {
 
   const url = '/categories';
   return function (dispatch: any,getState: any) {
-    console.log(getState().entities);
     if(!isEmpty(getState().entities.categories)) {
       console.log("emptyState");
+      return;
     }
     dispatch(categoriesRequest());
     return fetch(url)

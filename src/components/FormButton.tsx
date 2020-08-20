@@ -8,6 +8,7 @@ interface IProps {
   onPress?: () => void;
   style?: any;
   buttonText?: string;
+  color?:string;
 }
 
 export default class FormButton extends Component<IProps> {
@@ -18,6 +19,7 @@ export default class FormButton extends Component<IProps> {
           disabled={this.props.disabled}
           onPress={this.props.onPress}
           style={[styles.style, this.props.style]}
+          color={this.props.color}
         >
           {this.props.buttonText}
         </Button>
@@ -28,13 +30,14 @@ export default class FormButton extends Component<IProps> {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#5BC3BE",
-    borderColor: "#5BC3BE",
+    backgroundColor: "#FEAD37",
+    borderColor: "#FEAD37",
     borderRadius: 0,
+    color: "#ffffff"
   },
   style: {
     fontSize: 18,
-    color: "white",
+    color: "#ffffff",
     padding: 10,
   },
 });

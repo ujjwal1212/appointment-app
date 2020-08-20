@@ -1,4 +1,3 @@
-'use strict';
 import React, { Component } from 'react';
 import { ScrollView, Image, View,RefreshControl } from 'react-native';
 import { connect } from 'react-redux';
@@ -24,7 +23,7 @@ interface LinkDispatchProps {
   favoriteCompany: (company: any) => void;
 }
 type Props = IProps & LinkStateProps & LinkDispatchProps;
-class Favorites extends Component<Props, IState> {
+class FavoritesContainer extends Component<Props, IState> {
   constructor(props: Props) {
     super(props);
     this.state={
@@ -117,4 +116,4 @@ function mapStateToProps(state: AppState) {
   }
 }
 
-export default connect(mapStateToProps)(Favorites);
+export default connect(mapStateToProps)(FavoritesContainer);

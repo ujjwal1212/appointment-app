@@ -13,7 +13,7 @@ import { ICategory } from "../../constants/Category";
 
 interface IProps {
   categoriesReducer: any;
-  loadCategory: (category: any) => void;
+  loadCategory: (category: ICategory) => void;
   categories: Array<ICategory>;
 }
 interface IState {}
@@ -53,24 +53,7 @@ export default class CategoryList extends Component<IProps, IState> {
       </TouchableHighlight>
     )
   }
-
-  renderRow(category: ICategory) {
-    var img = this.getCategoryImage(category.name);
-    return (
-      <TouchableHighlight
-        onPress={() => this.props.loadCategory(category)}
-        underlayColor="transparent"
-      >
-        <View style={styles.row}>
-          <View style={styles.cellWrapper}>
-            <Image source={img} style={styles.thumbnail} />
-            <Text style={styles.text}> {category.name}</Text>
-          </View>
-        </View>
-      </TouchableHighlight>
-    );
-  }
-
+  
   render() {
     const { categories } = this.props;
     return (

@@ -1,17 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { AppState } from '../../store/configure-store';
-import CategoryList from '../../screens/Category/CategoryList';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { BottomTabParamList } from '../../../types';
-import { ThunkDispatch } from 'redux-thunk';
-import { AppActions } from '../../constants/ActionTypes';
-import { fetchCategories } from '../../actions/Category/categories';
-import { View } from '../../../components/Themed';
-import { ICategory } from '../../constants/Category';
+import React from "react";
+import { connect } from "react-redux";
+import { AppState } from "../../store/configure-store";
+import CategoryList from "../../screens/Category/CategoryList";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { ThunkDispatch } from "redux-thunk";
+import { AppActions } from "../../constants/ActionTypes";
+import { fetchCategories } from "../../actions/Category/categories";
+import { ICategory } from "../../constants/Category";
 
 interface IProps {
-  navigation: StackNavigationProp<BottomTabParamList>;
+  navigation: StackNavigationProp<any>;
   categories: Array<ICategory>;
   categoriesReducer: any;
 }
@@ -23,21 +21,23 @@ interface LinkDispatchProps {
 type Props = IProps & LinkStateProps & LinkDispatchProps;
 
 class Categories extends React.Component<Props, IState> {
-
   constructor(props: Props) {
     super(props);
     this.props.fetchCategories();
   }
 
-  loadCategory(category: any) {
-    this.props.navigation.navigate('Category', {
-      title:category.name_en.toUpperCase(),
-      itemID:category.id
+  public loadCategory = (category: ICategory) => {
+    return this.props.navigation.navigate("Home", {
+      screen: "Category",
+      params: {
+        title: category.name.toUpperCase(),
+        itemID: category.id,
+      }
     });
-  }
+  };
 
   render() {
-    const { categories,categoriesReducer } = this.props;
+    const { categories, categoriesReducer } = this.props;
     return (
       <CategoryList
         categories={categories}
@@ -53,16 +53,16 @@ function mapDispatchToProps(
   ownProps: IProps
 ): LinkDispatchProps {
   return {
-    fetchCategories: () => dispatch(fetchCategories())
-   };
-};
+    fetchCategories: () => dispatch(fetchCategories()),
+  };
+}
 
 function mapStateToProps(state: AppState) {
-  const { entities,categoriesReducer } = state;
+  const { entities, categoriesReducer } = state;
   return {
     categoriesReducer,
-    categories:entities.categories && entities.categories
-  }
+    categories: entities.categories && entities.categories,
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Categories);

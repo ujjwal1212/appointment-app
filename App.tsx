@@ -21,7 +21,6 @@ window.server = fakeServer;
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
-  console.log("Categories Mounted");
   if (!isLoadingComplete) {
     return null;
   } else {

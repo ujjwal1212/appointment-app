@@ -1,34 +1,51 @@
-'use strict';
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet,View } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, Region, LatLng } from 'react-native-maps';
+import { ICompany } from '../../constants/Company';
 interface IProps {
-  companies: any;
-  followLocation: any;
-  region: any;
+  companies: Array<ICompany>;
+  followLocation: (company: ICompany) => void;
+  region: Region;
+  onRegionChange: (region: Region) => void;
 }
-interface IState {}
-export default class CompanyMapsMarker extends Component<IProps, IState> {
 
-  render() {
-    const {companies,followLocation,region} = this.props;
+export default class CompanyMapsMarker extends React.Component<IProps> {
+  public map: any;
+  constructor(props: IProps) {
+    super(props);
+  }
+
+  onMapReady = () => {
+    const coordinates:LatLng[] = new Array<LatLng>();
+    Object
+      .keys(this.props.companies)
+      .map((key: any) => {
+        const { longitude, latitude } = this.props.companies[key];
+        coordinates.push({longitude: parseFloat(longitude), latitude: parseFloat(latitude)});
+      });
+    this.map.fitToCoordinates(coordinates, {animated: true});
+  }
+
+  public render = () => {
+    const { companies, followLocation, region } = this.props;
     return (
-
       <MapView
-        ref="map"
+        ref={ref =>  this.map = ref }
         style={styles.map}
         region={region}
-        //onRegionChange={()=>this.props.onRegionChange()}
+        onRegionChange={this.props.onRegionChange}
+        onMapReady={this.onMapReady}
       >
-        { Object.keys(companies).map(function (key) {
-          var company = Object.assign({},companies[key]);
+        { Object.keys(companies).map((key: any) => {
+          const company = Object.assign({},companies[key]);
           return (
             <Marker
+              identifier={company.name}
               ref={"ref"+company.id}
               key={"key"+company.id}
               coordinate={{latitude:parseFloat(company.latitude),longitude:parseFloat(company.longitude)}}
-              title={company.name_en}
-              description={`${company.address_en},${company.city_en}`}
+              title={company.name}
+              description={`${company.address}, ${company.city}`}
               onSelect={()=>followLocation(company)}
               pinColor="blue"
            />

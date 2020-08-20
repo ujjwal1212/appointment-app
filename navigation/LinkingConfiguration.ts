@@ -26,6 +26,11 @@ export default {
               RegistrationContainer: 'Register',
             },
           },
+          Category: {
+            screens: {
+              Category: 'Category',
+            },
+          },
         },
       },
       NotFound: '*',

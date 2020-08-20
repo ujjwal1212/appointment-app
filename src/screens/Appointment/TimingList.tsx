@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { ListView,TouchableHighlight,StyleSheet,Text,View } from 'react-native';
 import { APP_STYLES } from '../../utils/AppStyles';
 import LoadingIndicator from '../../components/LoadingIndicator';
-import Separator from '../../components/separator';
+import Separator from '../../components/Separator';
+import { FlatList } from 'react-native-gesture-handler';
 
 interface IProps {
   timings: any,
@@ -14,7 +15,7 @@ interface IProps {
 
 export default class TimingList extends Component<IProps> {
 
-  renderRow(time: any) {
+  renderRow = (time: any) => {
     const {selectedTime} = this.props;
     const cellStyle = styles.cellContainer;
     (selectedTime.id && selectedTime.id == time.id) ?? {...cellStyle, ...styles.activeCell};
@@ -31,21 +32,17 @@ export default class TimingList extends Component<IProps> {
 
   render() {
     const {timings,timingsReducer} = this.props;
-    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2})
-    let dataSource = timings ? ds.cloneWithRows(timings) : ds.cloneWithRows([]);
     return (
       <View >
         <View style={styles.separator}/>
         {timingsReducer.isFetching ? <LoadingIndicator style={{marginTop:10}}/> : <View/>}
-        <ListView
+        <FlatList
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          dataSource={dataSource}
-          renderRow={this.renderRow.bind(this)}
+          data={timings}
+          renderItem={this.renderRow}
           automaticallyAdjustContentInsets={false}
           style={styles.container}
-          enableEmptySections={true}
-          renderFooter={()=><Separator />}
         />
       </View>
     );

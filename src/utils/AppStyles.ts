@@ -1,8 +1,4 @@
-/**
- * @flow
- */
-'use strict';
-const APP_COLOR = '#03A9F4';
+const APP_COLOR = '#FEAD37';
 export const APP_STYLES =  {
   darkText: '#032250',
   lightText: '#7F91A7',
@@ -10,5 +6,6 @@ export const APP_STYLES =  {
   darkBackground: '#183E63',
   primaryColor:APP_COLOR,
   secondaryColor:'#5BC3BE',
-  buttonBackground:APP_COLOR
+  buttonBackground:APP_COLOR,
+  buttonTextColor: "#FFFFFF"
 };

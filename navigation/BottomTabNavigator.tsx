@@ -1,21 +1,23 @@
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 
-import { BottomTabParamList, HomeParamList, AppointmentsParamList, FavouritesParamList, RegistrationParamList } from '../types';
+import { BottomTabParamList, HomeParamList,  FavouritesParamList, MapParamList, AppointmentsParamList } from '../types';
 import AppointmentsScreen from '../screens/AppointmentsScreen';
-import HomeScreen from '../screens/HomeScreen';
 import FavouritesScreen from '../screens/FavouritesScreen';
-import RegistrationContainer from '../src/containers/Auth/RegistrationContainer';
+import Category from '../src/containers/Category/Category';
+import Company from '../src/containers/Company/Company';
+import CustomMap from '../src/containers/Company/CustomMap';
+import AppointmentContainer from '../src/containers/Appointment/AppointmentContainer';
 
-const BottomTab = createMaterialBottomTabNavigator<BottomTabParamList>();
+const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
 
   return (
-    <BottomTab.Navigator
-      initialRouteName="Home">
+    <BottomTab.Navigator>
       <BottomTab.Screen
         name="Home"
         component={HomeNavigator}
@@ -25,58 +27,70 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Appointments"
-        component={AppointmentsNavigator}
+        component={AppointmentNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-calendar" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="calendar-check-o" color={color} type="fa"/>,
+        }}
+      />
+      <BottomTab.Screen
+        name="Map"
+        component={MapNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="google-maps" color={color} type="mci" />,
         }}
       />
       <BottomTab.Screen
         name="Favourites"
         component={FavouritesNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-star-outline" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Registration"
-        component={RegistrationNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-star-outline" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-star" color={color} />,
         }}
       />
     </BottomTab.Navigator>
   );
 }
 
-function TabBarIcon(props: { name: string; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+function TabBarIcon(props: { name: string; color: string, type?: string }) {
+ if(props.type === 'fa'){
+  return <FontAwesome size={30} {...props} />;
+ } else if(props.type === 'mci'){
+  return <MaterialCommunityIcons size={30}  {...props}/>
+ } else {
+  return <Ionicons size={30} {...props} />;
+ }
 }
 
 const HomeStack = createStackNavigator<HomeParamList>();
 
 function HomeNavigator() {
   return (
-    <HomeStack.Navigator>
+    <HomeStack.Navigator initialRouteName="Category">
       <HomeStack.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={{ headerTitle: 'Home' }}
+        name="Category"
+        component={Category}
+        options={{ headerTitle: "Category" }}
+        initialParams={{title: "Saloons", itemID: "1"}}
+      />
+      <HomeStack.Screen
+        name="Company"
+        component={Company}
+        options={{ headerTitle: "Category" }}
       />
     </HomeStack.Navigator>
   );
 }
 
-const AppointmentsStack = createStackNavigator<AppointmentsParamList>();
+const MapStack = createStackNavigator<MapParamList>();
 
-function AppointmentsNavigator() {
+function MapNavigator() {
   return (
-    <AppointmentsStack.Navigator>
-      <AppointmentsStack.Screen
-        name="AppointmentsScreen"
-        component={AppointmentsScreen}
-        options={{ headerTitle: 'Appointments' }}
+    <MapStack.Navigator>
+      <MapStack.Screen
+        name="CustomMap"
+        component={CustomMap}
+        options={{ headerTitle: "Map View" }}
       />
-    </AppointmentsStack.Navigator>
+    </MapStack.Navigator>
   );
 }
 
@@ -88,22 +102,22 @@ function FavouritesNavigator() {
       <FavouritesStack.Screen
         name="FavouritesScreen"
         component={FavouritesScreen}
-        options={{ headerTitle: 'Favorites' }}
+        options={{ headerTitle: "Favorites" }}
       />
     </FavouritesStack.Navigator>
   );
 }
 
-const RegistrationStack = createStackNavigator<RegistrationParamList>();
+const AppointmentStack = createStackNavigator<AppointmentsParamList>();
 
-function RegistrationNavigator() {
+function AppointmentNavigator() {
   return (
-    <RegistrationStack.Navigator>
-      <RegistrationStack.Screen
-        name="RegistrationContainer"
-        component={RegistrationContainer}
-        options={{ headerTitle: 'Register' }}
+    <AppointmentStack.Navigator>
+      <AppointmentStack.Screen
+        name="AppointmentsScreen"
+        component={AppointmentContainer}
+        options={{ headerTitle: "Favorites" }}
       />
-    </RegistrationStack.Navigator>
+    </AppointmentStack.Navigator>
   );
 }

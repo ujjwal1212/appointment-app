@@ -2,6 +2,8 @@ export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
   Drawer: undefined;
+  Splash: undefined;
+  Login: undefined;
 };
 
 export type BottomTabParamList = {
@@ -23,10 +25,24 @@ export type BottomTabParamList = {
   Terms: undefined;
   Profile: undefined;
   Login: undefined;
+  Map: undefined;
 };
 
 export type HomeParamList = {
   HomeScreen: undefined;
+  Categories: undefined;
+  Category: {
+    title: string,
+    itemID: string;
+  };
+  Company: {
+    screen: any;
+    params: {
+      title: string,
+      itemID: string;
+    }
+  };
+  AppointmentsScreen: undefined;
 };
 
 export type AppointmentsParamList = {
@@ -43,6 +59,17 @@ export type RegistrationParamList = {
 
 export type CategoriesParamList = {
   Categories: undefined;
+};
+
+export type MapParamList = {
+  CustomMap: undefined;
+};
+
+export type CategoryParamList = {
+  Category: {
+    title: string,
+    itemID: string;
+  };
 };
 
 export type CompaniesParamList = {

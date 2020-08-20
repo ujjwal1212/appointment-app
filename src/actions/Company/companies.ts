@@ -16,7 +16,7 @@ function companiesRequest() {
 }
 
 function companiesSuccess(payload: any) {
-  const normalized = normalize(payload.data,Schemas.COMPANY_ARRAY);
+  const normalized = normalize(payload ,Schemas.COMPANY_ARRAY);
   console.log('norm',normalized);
   return {
     type: COMPANIES_SUCCESS,
@@ -32,7 +32,7 @@ function companiesFailure(error: any) {
 }
 
 export function fetchCompanies() {
-  const url = API_ROOT + '/companies';
+  const url = '/companies';
   return function (dispatch: any,getState: any) {
 
     if(!isEmpty(getState().entities.companies)) {

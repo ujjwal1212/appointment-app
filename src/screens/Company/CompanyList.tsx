@@ -1,7 +1,10 @@
 'use strict';
 import React, { Component } from 'react';
-import { Image, StyleSheet, Text, TouchableHighlight, View, ListView } from 'react-native';
+import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { FlatList } from 'react-native-gesture-handler';
+import { ICompany } from '../../constants/Company';
+import { Card } from 'react-native-paper';
 interface IProps {
   loadCompany: any;
   favoriteCompany: any;
@@ -11,15 +14,15 @@ interface IState {}
 
 export default class CompanyList extends Component<IProps, IState> {
 
-  renderRow(company: any) {
-    const {loadCompany,favoriteCompany} = this.props;
+  renderItem = ({ item }: { item: ICompany}) => {
+    const {loadCompany, favoriteCompany} = this.props;
     return (
-      <View style={styles.cellWrapper}>
-        <TouchableHighlight onPress={() => loadCompany(company)} underlayColor="transparent">
+      <Card style={styles.cellWrapper}>
+        <TouchableHighlight onPress={() => loadCompany(item)} underlayColor="transparent">
           <View style={{justifyContent:'center',alignItems:'center'}}>
-            <Image style={styles.thumbnail} source={{uri:company.image}}/>
+            <Image style={styles.thumbnail} source={{uri:item.image}}/>
             <View style={{flexDirection:'column',marginLeft:10,justifyContent:'center',alignItems:'center'}} >
-              <Text style={styles.name} numberOfLines={5}> {company.name_en}</Text>
+              <Text style={styles.name} numberOfLines={5}> {item.name}</Text>
               <View style={{flexDirection:'row',marginTop:5}}>
                 <Icon
                   name='ios-pin'
@@ -27,36 +30,31 @@ export default class CompanyList extends Component<IProps, IState> {
                   color={'#99ddff'}
                   style={styles.followIcon}
                 />
-                <Text style={styles.city}>{company.city_en},{company.address_en}</Text>
+                <Text style={styles.city}>{item.city},{item.address}</Text>
               </View>
-              <TouchableHighlight onPress={() => favoriteCompany(company)} underlayColor="transparent">
+              <TouchableHighlight onPress={() => favoriteCompany(item)} underlayColor="transparent">
                 <Icon
-                  name={company.isFavorited ? 'ios-heart' : 'ios-heart-outline'}
+                  name={item.isFavorited ? 'ios-heart' : 'ios-heart-empty'}
                   size={30}
                   color={'red'}
                   style={styles.heartIcon}
-                  ref={"favoriteIcon" + company.id}
+                  ref={"favoriteIcon" + item.id}
                 />
               </TouchableHighlight>
             </View>
           </View>
         </TouchableHighlight>
-      </View>
+      </Card>
     )
   }
 
   render() {
     const {companies} = this.props;
-
-    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2});
-    let dataSource = ds.cloneWithRows(companies);
-
     return (
-      <ListView
+      <FlatList
         contentContainerStyle={styles.contentContainer}
-        dataSource={dataSource}
-        renderRow={this.renderRow.bind(this)}
-        enableEmptySections={true} //@todo remove this in future version
+        data={companies}
+        renderItem={this.renderItem}
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
         ref='listView'

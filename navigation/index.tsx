@@ -8,6 +8,9 @@ import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import DrawerNavigator from './DrawerNavigator';
+import SplashScreen from '../src/screens/Auth/SplashScreen';
+import LoginScreen from '../src/screens/Auth/LoginScreen';
+import LoginContainer from '../src/containers/Auth/LoginContainer';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -23,9 +26,11 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Drawer">
       {/* <Stack.Screen name="Root" component={BottomTabNavigator} /> */}
       <Stack.Screen name="Drawer" component={DrawerNavigator} />
+      <Stack.Screen name="Splash" component={SplashScreen}></Stack.Screen>
+      <Stack.Screen name="Login" component={LoginContainer}></Stack.Screen>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );

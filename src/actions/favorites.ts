@@ -8,9 +8,9 @@ import {
   FAVORITES_REQUEST,
   FAVORITES_SUCCESS,
   FAVORITES_FAILURE,
-  UNFAVORITE_COMPANY,
   FAVORITE_COMPANY
 } from '../constants/ActionTypes'
+import { ICompany } from '../constants/Company';
 
 function favoritesRequest() {
   return {
@@ -18,7 +18,7 @@ function favoritesRequest() {
   }
 }
 
-function favoritesSuccess(payload) {
+function favoritesSuccess(payload: any) {
   const normalized = normalize(payload.data,Schemas.USER);
 
   return {
@@ -27,7 +27,7 @@ function favoritesSuccess(payload) {
   }
 }
 
-function favoritesFailure(error) {
+function favoritesFailure(error: any) {
   return {
     type: FAVORITES_FAILURE,
     error: error,
@@ -36,7 +36,7 @@ function favoritesFailure(error) {
 
 // get Auth user's favorites
 export function fetchFavorites() {
-  return (dispatch) => {
+  return (dispatch: any) => {
     dispatch(favoritesRequest());
     return getUserToken().then((token) => {
       const url = API_ROOT + `/favorites/?api_token=${token}`;
@@ -52,10 +52,10 @@ export function fetchFavorites() {
 }
 
 
-function updateUserFavorites(user,company) {
+function updateUserFavorites(user: any,company: ICompany) {
 
   const favorites = user.favorites ? user.favorites : [];
-  user.favorites = company.isFavorited ? favorites.filter((fav) => fav != company.id) : union(favorites,[company.id]) ;
+  user.favorites = company.isFavorited ? favorites.filter((fav: any) => fav != company.id) : union(favorites,[company.id]) ;
   const normalized = normalize(user,Schemas.USER);
   return {
     type: FAVORITE_COMPANY,
@@ -63,9 +63,9 @@ function updateUserFavorites(user,company) {
   }
 }
 
-function updateCompanyFavorites(user,company) {
+function updateCompanyFavorites(user: any,company: any) {
   const favorites = company.favorites ? company.favorites : [];
-  company.favorites = company.isFavorited ? favorites.filter((fav) => fav != user.id) : union(favorites,[user.id]) ;
+  company.favorites = company.isFavorited ? favorites.filter((fav: any) => fav != user.id) : union(favorites,[user.id]) ;
   company.unFavorited = company.isFavorited ? true : false;
   company.isFavorited = !company.isFavorited;
   const normalized = normalize(company,Schemas.COMPANY);
@@ -75,9 +75,9 @@ function updateCompanyFavorites(user,company) {
   }
 }
 
-export function favoriteCompany(comp) {
+export function favoriteCompany(comp: ICompany) {
 
-  return (dispatch,state) => {
+  return (dispatch: any,state: any) => {
 
     const company = Object.assign({},state().entities.companies[comp.id]);
     const user = Object.assign({},state().entities.users[state().userReducer.authUserID]);

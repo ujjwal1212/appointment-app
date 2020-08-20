@@ -62,7 +62,7 @@ class LoginContainer extends Component<Props, IState> {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{flex:1,paddingTop: 64,backgroundColor:'white'}}>
+      <ScrollView contentContainerStyle={{flex:1,backgroundColor:'white'}}>
         <LoginScreen
           {...this.state}
           loginReducer={loginReducer}
