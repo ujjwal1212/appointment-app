@@ -176,4 +176,4 @@ function mapStateToProps(state: AppState) {
   }
 }
 
-export default connect(mapStateToProps)(AppointmentsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AppointmentsContainer);

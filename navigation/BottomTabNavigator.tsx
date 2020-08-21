@@ -1,23 +1,27 @@
 import { Ionicons, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-
 import { BottomTabParamList, HomeParamList,  FavouritesParamList, MapParamList, AppointmentsParamList } from '../types';
-import AppointmentsScreen from '../screens/AppointmentsScreen';
 import FavouritesScreen from '../screens/FavouritesScreen';
 import Category from '../src/containers/Category/Category';
 import Company from '../src/containers/Company/Company';
 import CustomMap from '../src/containers/Company/CustomMap';
 import AppointmentContainer from '../src/containers/Appointment/AppointmentContainer';
+import { APP_STYLES } from '../src/utils/AppStyles';
+import AppointmentsContainer from '../src/containers/User/AppointmentsContainer';
 
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+const BottomTab = createMaterialBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
 
   return (
-    <BottomTab.Navigator>
+    <BottomTab.Navigator 
+      initialRouteName="Home"
+      activeColor="#f0edf6"
+      inactiveColor="#724200"
+      barStyle={{ backgroundColor: APP_STYLES.primaryColor }}
+    >
       <BottomTab.Screen
         name="Home"
         component={HomeNavigator}
@@ -52,11 +56,11 @@ export default function BottomTabNavigator() {
 
 function TabBarIcon(props: { name: string; color: string, type?: string }) {
  if(props.type === 'fa'){
-  return <FontAwesome size={30} {...props} />;
+  return <FontAwesome size={24} {...props} />;
  } else if(props.type === 'mci'){
-  return <MaterialCommunityIcons size={30}  {...props}/>
+  return <MaterialCommunityIcons size={24}  {...props}/>
  } else {
-  return <Ionicons size={30} {...props} />;
+  return <Ionicons size={24} {...props} />;
  }
 }
 
@@ -75,6 +79,11 @@ function HomeNavigator() {
         name="Company"
         component={Company}
         options={{ headerTitle: "Category" }}
+      />
+      <HomeStack.Screen
+        name="Appointment"
+        component={AppointmentContainer}
+        options={{ headerTitle: "Book an Appointment" }}
       />
     </HomeStack.Navigator>
   );
@@ -115,7 +124,7 @@ function AppointmentNavigator() {
     <AppointmentStack.Navigator>
       <AppointmentStack.Screen
         name="AppointmentsScreen"
-        component={AppointmentContainer}
+        component={AppointmentsContainer}
         options={{ headerTitle: "Favorites" }}
       />
     </AppointmentStack.Navigator>

@@ -42,7 +42,7 @@ export type HomeParamList = {
       itemID: string;
     }
   };
-  AppointmentsScreen: undefined;
+  Appointment: undefined;
 };
 
 export type AppointmentsParamList = {

@@ -9,16 +9,17 @@ import {
 import FavouritesScreen from "../screens/FavouritesScreen";
 import RegistrationContainer from "../src/containers/Auth/RegistrationContainer";
 import BottomTabNavigator from "./BottomTabNavigator";
+import { DrawerContent } from "./DrawerContent";
 
-const DrawerContent = createDrawerNavigator<BottomTabParamList>();
+const Drawer = createDrawerNavigator<BottomTabParamList>();
 
 export default function DrawerNavigator() {
   return (
-    <DrawerContent.Navigator initialRouteName="Home">
-      <DrawerContent.Screen name="Home" component={BottomTabNavigator} />
-      <DrawerContent.Screen name="Favourites" component={FavouritesNavigator}/>
-      <DrawerContent.Screen name="Registration" component={RegistrationNavigator}/>
-    </DrawerContent.Navigator>
+    <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
+      <Drawer.Screen name="Home" component={BottomTabNavigator} />
+      <Drawer.Screen name="Favourites" component={FavouritesNavigator}/>
+      <Drawer.Screen name="Profile" component={FavouritesNavigator}/>
+    </Drawer.Navigator>
   );
 }
 
