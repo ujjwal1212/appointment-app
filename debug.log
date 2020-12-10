@@ -1,0 +1,61 @@
+[0909/165500.465:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0909/165944.527:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0909/165944.602:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0910/175356.419:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0910/182705.507:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0910/182705.581:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0910/220359.638:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0910/224228.712:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0910/224228.771:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0910/224435.754:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0910/224435.850:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0910/225810.674:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0910/225810.745:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0910/230350.535:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0910/230350.624:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0913/171244.634:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0913/171244.794:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0913/171711.733:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0913/171711.834:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0914/231212.193:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0914/231212.267:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0914/231351.164:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0914/231351.287:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0915/164739.913:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0915/164740.061:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0918/183557.243:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0918/183557.303:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0918/184355.249:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0918/184355.352:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0923/231739.747:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0923/231739.836:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0923/232444.733:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0923/232444.799:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0923/235940.799:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0923/235940.853:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0924/000621.369:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0924/000621.485:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0924/001434.915:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0924/001434.985:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0924/004511.784:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0924/004511.853:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0924/004827.685:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0924/004827.807:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0924/182421.025:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0924/182421.102:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0924/182539.189:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0924/182539.247:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0924/224951.158:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0924/224951.224:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0925/000623.347:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0925/000623.430:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0925/001605.829:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0925/001605.916:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0925/003044.259:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0925/003044.353:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0925/003531.126:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0925/003531.202:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0925/164811.824:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0925/164811.879:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0925/165234.055:ERROR:exit_code_watcher_win.cc(87)] Failed to wait for process exit or stop event
+[0925/165234.160:ERROR:registration_protocol_win.cc(131)] TransactNamedPipe: The pipe has been ended. (0x6D)

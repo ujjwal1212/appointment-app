@@ -13,7 +13,7 @@ import {
 const InitialState = Record({
   isFetching: false,
   error: null,
-  selectedServiceID:null,
+  selectedServices:[],
   isSearching:false,
   searchResults:[]
 });
@@ -35,7 +35,7 @@ export default function companyReducer(state = initialState, action: any) {
         .set('isFetching',false)
         .set('error',action.error);
     case SET_COMPANY_SERVICE:
-      return state.set('selectedServiceID',action.selectedServiceID);
+      return state.set('selectedServices',action.selectedServices);
     case COMPANY_SEARCH_REQUEST:
       return state
         .set('isSearching',true);

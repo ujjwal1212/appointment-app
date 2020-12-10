@@ -69,10 +69,10 @@ function setSearchResult(normalized: any) {
   }
 }
 
-export function setCompanyService(serviceID: any) {
+export function setCompanyService(services: Array<any>) {
   return (dispatch: any) => dispatch({
     type:SET_COMPANY_SERVICE,
-    selectedServiceID:serviceID
+    selectedServices: services
   });
 }
 

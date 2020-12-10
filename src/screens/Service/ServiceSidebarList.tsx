@@ -1,4 +1,3 @@
-'use strict';
 import React, {  Component } from 'react';
 import { ScrollView, Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';

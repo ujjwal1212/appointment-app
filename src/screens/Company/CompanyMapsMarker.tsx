@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet,View } from 'react-native';
-import MapView, { Marker, Region, LatLng } from 'react-native-maps';
+import MapView, { Marker, Region } from 'react-native-maps';
 import { ICompany } from '../../constants/Company';
 interface IProps {
   companies: Array<ICompany>;
@@ -16,14 +16,10 @@ export default class CompanyMapsMarker extends React.Component<IProps> {
   }
 
   onMapReady = () => {
-    const coordinates:LatLng[] = new Array<LatLng>();
-    Object
-      .keys(this.props.companies)
-      .map((key: any) => {
-        const { longitude, latitude } = this.props.companies[key];
-        coordinates.push({longitude: parseFloat(longitude), latitude: parseFloat(latitude)});
-      });
-    this.map.fitToCoordinates(coordinates, {animated: true});
+    const markers = Object
+    .keys(this.props.companies)
+    .map((key: any) => this.props.companies[key].id);
+    this.map.fitToSuppliedMarkers(markers, {animated: true});
   }
 
   public render = () => {
@@ -32,24 +28,23 @@ export default class CompanyMapsMarker extends React.Component<IProps> {
       <MapView
         ref={ref =>  this.map = ref }
         style={styles.map}
-        region={region}
-        onRegionChange={this.props.onRegionChange}
-        onMapReady={this.onMapReady}
       >
         { Object.keys(companies).map((key: any) => {
           const company = Object.assign({},companies[key]);
-          return (
-            <Marker
-              identifier={company.name}
-              ref={"ref"+company.id}
-              key={"key"+company.id}
-              coordinate={{latitude:parseFloat(company.latitude),longitude:parseFloat(company.longitude)}}
-              title={company.name}
-              description={`${company.address}, ${company.city}`}
-              onSelect={()=>followLocation(company)}
-              pinColor="blue"
-           />
-          );
+          if(company.latitude && company.latitude) {
+            return (
+              <Marker
+                identifier={company.name}
+                ref={"ref"+company.id}
+                key={"key"+company.id}
+                coordinate={{latitude:parseFloat(company.latitude),longitude:parseFloat(company.longitude)}}
+                title={company.name}
+                description={`${company.address}, ${company.city}`}
+                onSelect={()=>followLocation(company)}
+                pinColor="blue"
+             />
+            ) 
+          }
         })}
         <View/>
       </MapView>

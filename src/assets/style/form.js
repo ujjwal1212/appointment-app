@@ -1,7 +1,6 @@
 /*
  a bootstrap like style
  */
-'use strict';
 
 var LABEL_COLOR = '#888888';
 var INPUT_COLOR = '#999999';

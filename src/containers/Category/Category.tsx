@@ -54,7 +54,7 @@ class Category extends Component<Props, IState> {
 
   render() {
     const {categoryReducer,companies} = this.props;
-
+    console.log(companies);
     return (
       <View style={{flex: 1,backgroundColor:'white'}}>
         { categoryReducer.isFetching && <LoadingIndicator /> }

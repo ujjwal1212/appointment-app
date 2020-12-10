@@ -13,7 +13,7 @@ const InitialState = Record({
 
 const initialState = new InitialState;
 
-export default function servicesReducer(state = initialState, action = {}) {
+export default function servicesReducer(state = initialState, action: any = {}) {
   switch (action.type) {
     case SERVICES_REQUEST:
       return state

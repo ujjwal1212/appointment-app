@@ -98,7 +98,7 @@ export default class AppointmentConfirm extends Component<IProps, IState> {
         backdrop={true} backdropOpacity={0.7} backdropColor="black"
         position="center"
         style={styles.container}
-        ref={this.appointmentConfirmModal}
+        ref={ref => this.appointmentConfirmModal = ref}
         swipeToClose={true}
         onClosed={this.props.onClosed}
         backdropContent={

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,View,Text,Image,TouchableOpacity } from 'react-native';
+import { StyleSheet,View,Text } from 'react-native';
 import FormButton from './FormButton';
 interface IProps {
   title: string;
@@ -56,16 +56,9 @@ const styles = StyleSheet.create({
     paddingTop:20,
     textAlign:'center'
   },
-
   minFeatureText:{
     paddingTop:30,
     textDecorationLine:'underline',
     textAlign:'center'
   },
-  button: {
-    backgroundColor: '#5BC3BE',
-    borderColor: '#5BC3BE',
-    borderRadius: 0,
-    opacity:1
-  }
 });

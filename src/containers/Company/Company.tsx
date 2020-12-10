@@ -1,13 +1,11 @@
-'use strict';
 import React, {Component} from "react";
-import {View, ScrollView, Linking,ActionSheetIOS } from "react-native";
+import {View, Linking,ActionSheetIOS } from "react-native";
 import {connect} from "react-redux";
 import {fetchCompany, setCompanyService} from "../../actions/Company/company";
 import LoadingIndicator from "../../components/LoadingIndicator";
 import CompanyMap from "../../screens/Company/CompanyMap";
 import ServiceList from "../../screens/Service/ServiceList";
 import CompanyItem from "../../screens/Company/CompanyItem";
-import { CommonActions } from "@react-navigation/native";
 import { ICompany } from "../../constants/Company";
 import CompanyDescription from "../../screens/Company/CompanyDescription";
 import CompanyContact from "../../screens/Company/CompanyContact";
@@ -16,6 +14,7 @@ import { AppState } from '../../store/configure-store';
 import { AppActions } from "../../constants/ActionTypes";
 import SegmentedControlTab from "react-native-segmented-control-tab";
 interface IProps {
+  navigation: any;
   itemID: string;
   route: any;
   company: ICompany;
@@ -25,11 +24,12 @@ interface IProps {
 }
 interface IState {
   selectedIndex: number;
+  selectedServices: Array<any>
 }
 interface LinkStateProps {}
 interface LinkDispatchProps {
   fetchCompany: (id: string, requiredFields: Array<string>) => void;
-  setCompanyService: (id: string) => void;
+  setCompanyService: (id: Array<string>) => void;
 }
 
 type Props = IProps & LinkStateProps & LinkDispatchProps;
@@ -38,22 +38,24 @@ class Company extends Component<Props, IState> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      selectedIndex : 0
+      selectedIndex : 0,
+      selectedServices: []
     };
     const itemId = this.props.route.params.itemID;
     this.props.fetchCompany(itemId,['services','employees','favorites']);
-    this.loadDateTime = this.loadDateTime.bind(this);
-    this.followLocation = this.followLocation.bind(this);
   }
 
-  componentDidMount() {  }
+  public loadDateTime = (service: any) => {
+    this.state.selectedServices.push(service.id);
+    this.props.setCompanyService(this.state.selectedServices);
+  }
 
-  loadDateTime(service: any) {
+  public bookAppointment = (service: any) => {
     this.props.setCompanyService(service.id);
-    return CommonActions.navigate("Service",{
-      title:service.name_en,
-      serviceID:service.id,
-      companyID:this.props.itemID
+    this.props.navigation.push("Appointment",{
+      title: service.name,
+      services: service.id,
+      companyID: this.props.route.params.itemID
     });
   }
 
@@ -66,7 +68,7 @@ class Company extends Component<Props, IState> {
 
 
   
-  followLocation(company: ICompany) {
+  followLocation = (company: ICompany) => {
     ActionSheetIOS.showActionSheetWithOptions(
       {
         title: `${company.name}, ${company.address} - ${company.city}`,
@@ -134,7 +136,7 @@ class Company extends Component<Props, IState> {
     }
 
     return (
-      <ScrollView style={{ flex:1,backgroundColor:'white' }} contentContainerStyle={{paddingTop: 16}} contentInset={{ bottom:50 }} >
+      <View style={{ flex:1,backgroundColor:'white' }} >
         <CompanyItem company={company}/>
         <View>
           <SegmentedControlTab
@@ -144,7 +146,7 @@ class Company extends Component<Props, IState> {
           />
           {selectedComponent}
         </View>
-      </ScrollView>
+      </View>
     );
   }
 }
@@ -152,7 +154,6 @@ class Company extends Component<Props, IState> {
 function mapStateToProps(state: AppState,ownProps: IProps) {
   const { companyReducer,entities} = state;
   const company = entities?.companies[ownProps.route.params.itemID];
-  console.log(company);
   return {
     companyReducer,
     company,
@@ -168,8 +169,8 @@ function mapDispatchToProps(
     fetchCompany: (id: string, requiredFields: Array<any>) => {
       return dispatch(fetchCompany(id, requiredFields))
     },
-    setCompanyService: (id: string) => {
-      return dispatch(setCompanyService(id));
+    setCompanyService: (services: Array<string>) => {
+      return dispatch(setCompanyService(services));
     }
    };
 };

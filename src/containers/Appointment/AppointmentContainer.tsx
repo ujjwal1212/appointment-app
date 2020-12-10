@@ -15,11 +15,11 @@ import AppointmentList from '../../screens/Appointment/AppointmentList';
 import Calendar from '../../screens/Appointment/Calendar';
 import Appointment from '../../constants/Appointment';
 import EmployeePicker from '../../screens/Company/EmployeePicker';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface IProps {
   navigation: StackNavigationProp<BottomTabParamList>;
-  companyID: string;
-  serviceID: string;
+  route: any;
   timings: any;
   employees: Array<any>;
   company: any;
@@ -32,7 +32,7 @@ interface IState {
   selectedTime: any,
   selectedEmployee: any,
   showEmployeeListModal : boolean,
-  showAppointmentConfirmModal : boolean,
+  showAppointmentConfirmModal : any,
 }
 
 interface LinkStateProps {}
@@ -111,14 +111,11 @@ class AppointmentContainer extends Component<Props, IState> {
   }
 
   render() {
+    console.log(this.props);
     const {timings,employees,company,userReducer,service,timingsReducer} = this.props;
     return (
-      <ScrollView
+      <SafeAreaView
         style={{ flex:1, backgroundColor:'white' }}
-        contentContainerStyle={{paddingVertical:64}}
-        ref="scrollView"
-        showsVerticalScrollIndicator={false}
-        automaticallyAdjustContentInsets={false}
       >
         <Calendar
           selectedDate={this.state.selectedDate}
@@ -138,15 +135,6 @@ class AppointmentContainer extends Component<Props, IState> {
           timingsReducer={timingsReducer}
         />
 
-        {
-          employees &&
-          <EmployeePicker
-            employees={employees}
-            onEmployeeSelect={this.onEmployeeSelect}
-            onClosed={this.onEmployeeListModalClosed}
-            showEmployeeListModal={this.state.showEmployeeListModal}
-          />
-        }
         <AppointmentConfirm
           company={company}
           service={service}
@@ -167,21 +155,23 @@ class AppointmentContainer extends Component<Props, IState> {
           containerStyle={{padding:5,margin:10,marginTop:0,marginBottom:0,backgroundColor:'tomato',opacity:0.7}}
         />
         }
-      </ScrollView>
+      </SafeAreaView>
     );
   }
 }
 
 function mapStateToProps(state: AppState,ownProps: IProps) {
   const { entities } = state;
-  const company = entities.companies[ownProps.companyID];
-  const service = entities.services[ownProps.serviceID];
+  const company = entities.companies[ownProps.route.params.companyID];
+  const service = entities.services[ownProps.route.params.serviceID];
+  console.log(company);
+  console.log(service);
   return {
     timingsReducer:state.timingsReducer,
     userReducer:state.userReducer,
     company,
     service,
-    employees:company.employees ? company.employees.map((employeeID: string)=>entities.employees[employeeID]) : [],
+    employees:company?.employees ? company.employees.map((employeeID: string)=>entities.employees[employeeID]) : [],
     timings:entities.timings
   }
 }

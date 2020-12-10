@@ -1,22 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import { Provider } from "react-redux";
 import configureStore from './src/store/configure-store';
-import { fakeServer } from './server/server';
-declare global {
-  interface Window { server: any; }
-}
-
-if(window.server) {
-  window.server.shutdown()
-}
-
-window.server = fakeServer;
+import Amplify, { Auth } from 'aws-amplify';
+import config from './aws-exports';
+import { withAuthenticator } from "aws-amplify-react-native";
+Amplify.configure(config)
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

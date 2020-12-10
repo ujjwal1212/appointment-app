@@ -1,6 +1,5 @@
-'use strict';
 import React, { Component } from 'react';
-import { TouchableHighlight, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { APP_STYLES } from '../../utils/AppStyles';
 interface IProps {
@@ -12,7 +11,7 @@ interface IProps {
 export default class AppointmentList extends Component<IProps> {
 
   render() {
-    const {selectedEmployee,listEmployees,service} = this.props;
+    const {service} = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.separator} />
@@ -26,26 +25,8 @@ export default class AppointmentList extends Component<IProps> {
             />
           </View>
           <View style={styles.middleCol}>
-            <Text style={styles.serviceName}>{service.name_en}</Text>
-            <Text style={styles.price}>{service.pivot.price|0} KD</Text>
-          </View>
-          <View style={styles.rightCol}>
-            <Text style={styles.staff}>Pick a Staff</Text>
-            <TouchableHighlight onPress={()=>listEmployees()} underlayColor="transparent">
-              <View style={styles.employeeSelectWrapper}>
-                <View style={{flex:2}}>
-                  <Text style={styles.employeeName} >{selectedEmployee.id ? selectedEmployee.name_en : 'Any'}</Text>
-                </View>
-                <View style={{flex:1}}>
-                  <Icon
-                    name='ios-arrow-forward'
-                    size={15}
-                    color={'white'}
-                    style={{width:15,height:15,alignSelf:'flex-end',fontWeight:'300'}}
-                  />
-                </View>
-              </View>
-            </TouchableHighlight>
+            <Text style={styles.serviceName}>{service.name}</Text>
+            <Text style={styles.price}>{service.pivot.price|0} RS</Text>
           </View>
         </View>
       </View>
@@ -124,8 +105,6 @@ var styles = StyleSheet.create({
     fontSize:15,
     color:'purple'
   },
-
-
 });
 
 

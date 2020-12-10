@@ -17,7 +17,7 @@ type IProps = {
 };
 
 export default class LoginScreen extends Component<IProps> {
-
+  public phone: any;
   render() {
     const { email, password} = this.props; 
     const {onFieldChange, loginReducer, loginUser, handleRegisterRoute, handleForgotPasswordRoute } = this.props;

@@ -41,12 +41,11 @@ export function fetchCategory(categoryID: any, requiredFields = []) {
     
     dispatch(categoryRequest());
     getUserToken().then((token) => {
-        const url = `/categories/${categoryID}/?api_token=${token}`;
+        const url = API_ROOT + `/companies/${categoryID}/list`;
         return fetch(url)
           .then(response => response.json())
           .then(json => {
             const normalized = normalize(json, Schemas.CATEGORY);
-            console.log(normalized);
             dispatch(categorySuccess(normalized))
           })
       })

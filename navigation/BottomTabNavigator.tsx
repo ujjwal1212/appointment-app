@@ -1,5 +1,6 @@
 import { Ionicons, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { BottomTabParamList, HomeParamList,  FavouritesParamList, MapParamList, AppointmentsParamList } from '../types';
@@ -11,16 +12,13 @@ import AppointmentContainer from '../src/containers/Appointment/AppointmentConta
 import { APP_STYLES } from '../src/utils/AppStyles';
 import AppointmentsContainer from '../src/containers/User/AppointmentsContainer';
 
-const BottomTab = createMaterialBottomTabNavigator<BottomTabParamList>();
+const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator 
       initialRouteName="Home"
-      activeColor="#f0edf6"
-      inactiveColor="#724200"
-      barStyle={{ backgroundColor: APP_STYLES.primaryColor }}
     >
       <BottomTab.Screen
         name="Home"

@@ -15,7 +15,7 @@ const Drawer = createDrawerNavigator<BottomTabParamList>();
 
 export default function DrawerNavigator() {
   return (
-    <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
+    <Drawer.Navigator drawerContent={props => <DrawerContent options={{drawerIcon:{color: "#ffffff"}}} {...props}/>}>
       <Drawer.Screen name="Home" component={BottomTabNavigator} />
       <Drawer.Screen name="Favourites" component={FavouritesNavigator}/>
       <Drawer.Screen name="Profile" component={FavouritesNavigator}/>
@@ -34,19 +34,5 @@ function FavouritesNavigator() {
         options={{ headerTitle: "Favorites" }}
       />
     </FavouritesStack.Navigator>
-  );
-}
-
-const RegistrationStack = createStackNavigator<RegistrationParamList>();
-
-function RegistrationNavigator() {
-  return (
-    <RegistrationStack.Navigator>
-      <RegistrationStack.Screen
-        name="RegistrationContainer"
-        component={RegistrationContainer}
-        options={{ headerTitle: "Register" }}
-      />
-    </RegistrationStack.Navigator>
   );
 }

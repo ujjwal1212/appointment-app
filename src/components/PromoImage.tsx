@@ -1,4 +1,3 @@
-'use strict';
 import React, { Component } from 'react';
 import { StyleSheet, Text, Image, View, Dimensions } from 'react-native';
 interface IProps {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button } from "react-native-paper";
+import { APP_STYLES } from "../utils/AppStyles";
 
 interface IProps {
   containerStyle?: any;
@@ -30,8 +31,8 @@ export default class FormButton extends Component<IProps> {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FEAD37",
-    borderColor: "#FEAD37",
+    backgroundColor: APP_STYLES.primaryColor,
+    borderColor: APP_STYLES.primaryColor,
     borderRadius: 0,
     color: "#ffffff"
   },

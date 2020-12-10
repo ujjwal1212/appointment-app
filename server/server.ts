@@ -1,5 +1,5 @@
 import { Server } from "miragejs";
-import { categories, companies } from "./companies";
+import { categories } from "./companies";
 
 
 export const fakeServer = new Server({
@@ -15,10 +15,10 @@ export const fakeServer = new Server({
       return categories[request.params.id];
     });
     this.get("/companies", (schema, request) => {
-      return companies;
+      return categories["1"].companies;
     });
     this.get("/companies/:id/show", (schema, request) => {
-      return companies.find(company => (company.id === request.params.id)) || [];
+      return categories["1"].companies.find((company: any) => (company.id === request.params.id)) || [];
     });
   },
 });

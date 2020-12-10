@@ -1,4 +1,3 @@
-'use strict';
 import React, {  Component } from 'react';
 import { ScrollView, View, Text, TouchableHighlight, StyleSheet,ListView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';

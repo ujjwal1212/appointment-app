@@ -13,6 +13,7 @@ import {
 } from "react-native-paper";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { APP_STYLES } from "../src/utils/AppStyles";
 
 export function DrawerContent(props: any) {
   const paperTheme = useTheme();
@@ -114,7 +115,7 @@ export function DrawerContent(props: any) {
 
 const styles = StyleSheet.create({
   drawerContent: {
-    flex: 1,
+    flex: 1
   },
   userInfoSection: {
     paddingLeft: 20,

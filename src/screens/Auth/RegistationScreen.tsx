@@ -12,10 +12,6 @@ import LoadingIndicator from "../../components/LoadingIndicator";
 import FormButton from "../../components/FormButton";
 
 type IProps = {
-  name?: string;
-  email?: string;
-  password?: string;
-  passwordConfirmation?: string;
   mobile?: string;
   registerReducer: any;
   registerUser: Function;
@@ -30,10 +26,6 @@ export default class RegistationScreen extends Component<IProps> {
 
   render() {
     const {
-      name,
-      email,
-      password,
-      passwordConfirmation,
       mobile,
       registerReducer,
       registerUser,
@@ -44,48 +36,11 @@ export default class RegistationScreen extends Component<IProps> {
     return (
       <View style={styles.container}>
         {registerReducer.isFetching && <LoadingIndicator />}
-
-        <TextInput
-          style={[styles.textInput]}
-          onChangeText={(value) => onFieldChange("name", value)}
-          value={name}
-          maxLength={40}
-          placeholderTextColor="gray"
-          placeholder="Name"
-        />
-
-        <TextInput
-          style={[styles.textInput]}
-          onChangeText={(value) => onFieldChange("email", value)}
-          value={email}
-          maxLength={40}
-          placeholderTextColor="gray"
-          placeholder="Email"
-        />
-
-        <TextInput
-          style={[styles.textInput]}
-          onChangeText={(value) => onFieldChange("password", value)}
-          value={password}
-          maxLength={40}
-          placeholderTextColor="gray"
-          placeholder="Password"
-          secureTextEntry={true}
-        />
-        <TextInput
-          style={[styles.textInput]}
-          onChangeText={(value) => onFieldChange("passwordConfirmation", value)}
-          value={passwordConfirmation}
-          maxLength={40}
-          placeholderTextColor="gray"
-          placeholder="Password Confirmation"
-          secureTextEntry={true}
-        />
         <TextInput
           style={[styles.textInput]}
           onChangeText={(value) => onFieldChange("mobile", value)}
           value={mobile}
-          maxLength={40}
+          maxLength={10}
           placeholderTextColor="gray"
           placeholder="Mobile"
         />

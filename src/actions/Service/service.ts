@@ -14,7 +14,7 @@ function serviceRequest() {
   }
 }
 
-function serviceSuccess(payload) {
+function serviceSuccess(payload: any) {
   const normalized = normalize(payload.data,Schemas.SERVICE);
   return {
     type: SERVICE_SUCCESS,
@@ -22,16 +22,16 @@ function serviceSuccess(payload) {
   }
 }
 
-function serviceFailure(error) {
+function serviceFailure(error: any) {
   return {
     type: SERVICE_FAILURE,
     error: error
   }
 }
 
-export function fetchService(serviceID,requiredFields=[]) {
+export function fetchService(serviceID: string,requiredFields: string[]=[]) {
   const url = API_ROOT + '/services/' + serviceID;
-  return (dispatch,getState) => {
+  return (dispatch: any, getState : any) => {
 
     const service = getState().entities.services[serviceID];
     if (service && requiredFields.every(key => service.hasOwnProperty(key))) {

@@ -1,4 +1,3 @@
-'use strict';
 import React, { Component } from 'react';
 import { StyleSheet,View,TouchableOpacity,Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
@@ -50,7 +49,7 @@ export default class CompanyMap extends Component<IProps, IState> {
   };
 
   render() {
-    const {company,followLocation} = this.props;
+    const {company, followLocation} = this.props;
     return (
       <MapView
         ref="map"

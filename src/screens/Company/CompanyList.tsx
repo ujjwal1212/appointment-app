@@ -6,12 +6,12 @@ import {
   Text,
   TouchableHighlight,
   View,
+  ImageBackground,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { FlatList } from "react-native-gesture-handler";
 import { ICompany } from "../../constants/Company";
-import { APP_STYLES } from "../../utils/AppStyles";
-import Separator from "../../components/Separator";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 interface IProps {
   loadCompany: any;
   favoriteCompany: any;
@@ -30,40 +30,42 @@ export default class CompanyList extends Component<IProps, IState> {
           style={styles.itemContainer}
         >
           <View>
-            <View style={{ flex: 10, minHeight: 30,  flexDirection: "row" }}>
-              <Text style={styles.name}>{item.name}</Text>
-              <TouchableHighlight
-                style={{flex: 1, marginTop: -10, marginRight: -15}}
-                onPress={() => favoriteCompany(item)}
-                underlayColor="transparent"
-              >
-                <Icon
-                  name={item.isFavorited ? "ios-heart" : "ios-heart-empty"}
-                  size={30}
-                  color={"red"}
-                  style={styles.heartIcon}
-                  ref={"favoriteIcon" + item.id}
-                />
-              </TouchableHighlight>
+            <View style={{ height: 320 }}>
+              <ImageBackground style={styles.thumbnail} source={require('../../assets/img/4E307995-3444-3FA2-19CC-D19EF40E525C.jpg')} />
             </View>
-            <Separator style={{marginBottom: 10}}/>
-            <View style={{ height: 110 }}>
-              <View style={{backgroundColor: "grey"}}>
-                <Image style={styles.thumbnail} source={{ uri: item.image }} />
+            <View style={{paddingHorizontal: 16, paddingBottom: 16}}>
+              <View style={styles.companyDetailContainer}>
+                <Text style={styles.name}>{item.name}</Text>
+                <TouchableHighlight
+                  style={{flex: 1, marginTop: -10, marginRight: -15}}
+                  underlayColor="transparent"
+                >
+                  <MaterialCommunityIcons 
+                    name="dots-vertical" 
+                    size={30} 
+                    style={styles.icon}
+                  />
+                </TouchableHighlight>
               </View>
-            </View>
-            <Separator style={{marginBottom: 10}}/>
-            <View >
-              <View style={{ flexDirection: "row", marginTop: 5 }}>
-                <Icon
-                  name="ios-pin"
-                  size={20}
-                  color={"#99ddff"}
-                  style={styles.followIcon}
-                />
-                <Text style={styles.city}>
-                  {item.city},{item.address}
-                </Text>
+              <View style={{ flexDirection: "row" }}>
+                <TouchableHighlight
+                  onPress={() => favoriteCompany(item)}
+                  underlayColor="transparent"
+                >
+                  <Icon
+                    name={item.isFavorited ? "ios-heart" : "ios-heart-empty"}
+                    size={30}
+                    color={"red"}
+                    style={styles.icon}
+                    ref={"favoriteIcon" + item.id}
+                  />
+                </TouchableHighlight>
+                <TouchableHighlight
+                  onPress={() => favoriteCompany(item)}
+                  underlayColor="transparent"
+                >
+                  <MaterialIcons name="directions" size={30} color="black" />
+                </TouchableHighlight>
               </View>
             </View>
           </View>
@@ -89,15 +91,13 @@ export default class CompanyList extends Component<IProps, IState> {
 
 var styles = StyleSheet.create({
   contentContainer: {
-    paddingVertical: 10,
-    paddingHorizontal: 5,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#e8e8e8",
   },
   itemContainer: {
     backgroundColor: "#ffffff",
   },
   cellWrapper: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#d8d8d8",
     shadowColor: "blue",
     shadowOffset: {
       width: 0,
@@ -105,10 +105,7 @@ var styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
-    marginHorizontal: 10,
-    marginVertical: 5,
-    padding: 15,
+    marginBottom: 8,
   },
   name: {
     color: "#707070",
@@ -121,19 +118,20 @@ var styles = StyleSheet.create({
     fontSize: 15,
   },
   thumbnail: {
-    width: 100,
-    height: 100,
+    width: 400,
+    height: 300,
     borderRadius: 50,
   },
   city: {
     alignSelf: "center",
   },
-  followIcon: {
-    height: 20,
-    width: 20,
-  },
-  heartIcon: {
+  icon: {
     height: 30,
     width: 30,
   },
+  companyDetailContainer: { 
+    flex: 10, 
+    height: 40,  
+    flexDirection: "row"
+  }
 });

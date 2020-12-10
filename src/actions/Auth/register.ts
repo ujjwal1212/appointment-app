@@ -28,9 +28,6 @@ function registerFailure(errors: any) {
 
 export function signup(inputs: RegistrationData, cb : Function) {
   return (dispatch: any) => {
-
-    // change passwordConfirmation to password_confirmation
-
     dispatch(registerRequest());
     return fetch(API_ROOT + '/auth/register', {
       method: 'POST',

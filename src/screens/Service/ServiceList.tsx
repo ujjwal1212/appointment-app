@@ -1,4 +1,3 @@
-"use strict";
 import React, { Component } from "react";
 import {
   Image,
@@ -6,46 +5,41 @@ import {
   Text,
   TouchableHighlight,
   View,
-  ListView,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { APP_STYLES } from "../../utils/AppStyles";
 import { ICompany } from "../../constants/Company";
+import { FlatList } from "react-native-gesture-handler";
 interface IProps {
   services: Array<any>;
-  company: ICompany;
+  loadDateTime: (service: any) => any;
+  company: ICompany
 }
-interface IState {}
-interface LinkStateProps {}
-interface LinkDispatchProps {
-  loadDateTime: (service: any) => void;
-}
-type Props = IProps & LinkStateProps & LinkDispatchProps;
 
-export default class ServiceList extends Component<Props, IState> {
-  renderRow(service: any) {
+export default class ServiceList extends Component<IProps> {
+  renderRow({ item }: { item: any }) {
     return (
       <View style={styles.cellContainer}>
         <TouchableHighlight
-          onPress={() => this.props.loadDateTime(service)}
+          onPress={() => this.props.loadDateTime(item)}
           underlayColor="transparent"
         >
           <View style={styles.cellWrapper}>
             <View style={styles.titleWrapper}>
-              <Text style={styles.name}>{service.name_en}</Text>
+              <Text style={styles.name}>{item.name}</Text>
             </View>
             <View style={styles.priceWrapper}>
               <Text style={styles.price}>
-                {service.pivot.price ? service.pivot.price | 0 : "-"} KD
+                {item.pivot.price ? item.pivot.price | 0 : "-"} RS
               </Text>
               <View style={styles.bookButtonWrapper}>
                 <Icon
-                  name="ios-calendar"
+                  name="ios-add"
                   size={20}
                   color="white"
                   style={styles.calendarIcon}
                 />
-                <Text style={styles.bookButton}>Book</Text>
+                <Text style={styles.bookButton}>ADD</Text>
               </View>
             </View>
           </View>
@@ -57,18 +51,13 @@ export default class ServiceList extends Component<Props, IState> {
 
   render() {
     const { services } = this.props;
-    let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 != r2 });
-    let dataSource = services
-      ? ds.cloneWithRows(services)
-      : ds.cloneWithRows([]);
 
     return (
-      <ListView
-        dataSource={dataSource}
-        renderRow={this.renderRow.bind(this)}
+      <FlatList
+        data={services}
+        renderItem={this.renderRow.bind(this)}
         automaticallyAdjustContentInsets={false}
         style={styles.container}
-        enableEmptySections={true} //@todo remove this in future version
       />
     );
   }

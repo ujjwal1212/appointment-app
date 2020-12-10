@@ -26,6 +26,8 @@ export type BottomTabParamList = {
   Profile: undefined;
   Login: undefined;
   Map: undefined;
+  Services: any;
+  Description: any;
 };
 
 export type HomeParamList = {

@@ -1,4 +1,3 @@
-'use strict';
 import React, { Component } from 'react';
 import { StyleSheet,View,Text } from 'react-native';
 interface IProps {
@@ -10,7 +9,7 @@ export default class CompanyDescription extends Component<IProps, IState> {
     return (
       <View style={styles.container}>
         <Text>
-          {this.props.company.description_en}
+          {this.props.company.description}
         </Text>
         <Text>
           {this.props.company.phone}
